@@ -18,7 +18,9 @@ public enum CharacterMovement
 public class FootmanBehavior : MonoBehaviour
 {
 	public float minDistance;
-	public float speed; 
+	public float speed;
+	public bool selected;
+	public bool main;
 
 	private CharacterMovement currentDirection = CharacterMovement.STOP;
 	private Vector2 newPosition;
@@ -71,19 +73,25 @@ public class FootmanBehavior : MonoBehaviour
 							"Walk up right" })[(int)currentDirection];
 	}
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
 		body = gameObject.GetComponent<Rigidbody2D>();
 		mainCam = Camera.main;
-    }
+		PlayerControllerBehaviour.instance.OnMoveToLocation += MoveListener;
+	}
+
+	private void MoveListener()
+	{
+		if (selected)
+			MoveTo(mainCam.ScreenToWorldPoint(Input.mousePosition));
+	}
 
     // Update is called once per frame
     void Update()
     {
-		mainCam.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -10);
-		if (Input.GetButtonDown("Fire1"))
-			MoveTo(mainCam.ScreenToWorldPoint(Input.mousePosition));
+		if (main)
+			mainCam.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -10);
 		if (currentDirection != CharacterMovement.STOP)
 		{
 			if (Vector2.Distance(gameObject.transform.position, newPosition) < minDistance)
@@ -95,4 +103,9 @@ public class FootmanBehavior : MonoBehaviour
 				body.MovePosition((Vector2)gameObject.transform.position + (currentVector * speed * Time.deltaTime));
 		}
     }
+
+	private void OnDestroy()
+	{
+		PlayerControllerBehaviour.instance.OnMoveToLocation -= MoveListener;
+	}
 }
