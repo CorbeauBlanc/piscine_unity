@@ -20,7 +20,7 @@ public class FootmanBehavior : MonoBehaviour
 	public float minDistance;
 	public float speed; 
 
-	public CharacterMovement currentDirection = CharacterMovement.STOP;
+	private CharacterMovement currentDirection = CharacterMovement.STOP;
 	private Vector2 newPosition;
 	private Vector2 currentVector;
 	private Rigidbody2D body;
@@ -33,6 +33,7 @@ public class FootmanBehavior : MonoBehaviour
 		currentVector = (coords - (Vector2)gameObject.transform.position).normalized;
 		currentDirection = GetCurrentDirection(currentVector);
 		gameObject.GetComponent<Animator>().SetTrigger(GetCurrentTrigger(currentDirection));
+		HumanAudioManager.instance.playRandomAcknowledge();
 	}
 
 	private CharacterMovement GetCurrentDirection(Vector2 currentVector)

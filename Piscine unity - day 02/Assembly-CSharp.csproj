@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\FootmanBehavior.cs" />
+    <Compile Include="Assets\Scripts\HumanAudioManager.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Moonie/Documents/GitHub/piscine_unity/Piscine unity - day 02/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
