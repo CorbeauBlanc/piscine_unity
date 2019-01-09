@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4884206252518715836}
   - component: {fileID: 4884206252518715837}
   - component: {fileID: 7065831059584660787}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Footman
   m_TagString: Footman
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300008, guid: 8f88dbfbebfd4489d94a3160fe4f73d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
