@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "/Users/edescoin/Documents/GitHub/piscine_unity/day 03/Assembly-CSharp-Editor.csproj",
+  "TargetFramework": "v3.5",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}
