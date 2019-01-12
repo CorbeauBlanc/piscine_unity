@@ -13,6 +13,6 @@ public class StatsScript : MonoBehaviour
 	void Start()
     {
 		totalRings.text = PlayerPrefs.GetInt("Rings").ToString();
-		totalLives.text = PlayerPrefs.GetInt("Lives").ToString();
+		totalLives.text = PlayerPrefs.GetInt("Lost Lives").ToString();
 	}
 }

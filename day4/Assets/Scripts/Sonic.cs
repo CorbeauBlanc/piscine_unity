@@ -293,6 +293,8 @@ public class Sonic : MonoBehaviour
 		rbody.AddForce (new Vector2(0, 15), ForceMode2D.Impulse);
 		GetComponent<CircleCollider2D>().enabled = false;
 		Camera.main.transform.parent = null;
+		PlayerPrefs.SetInt("Lost Lives", PlayerPrefs.GetInt("Lost Lives") + 1);
+		PlayerPrefs.Save();
 		Invoke("newLife", 2);
 	}
 

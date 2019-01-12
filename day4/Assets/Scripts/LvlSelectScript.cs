@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LvlSelectScript : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class LvlSelectScript : MonoBehaviour
 		if (!unlocked)
 			gameObject.GetComponent<Image>().color = new Color(.5F, .5F, .5F, .5F);
 		else
-			textField.text = PlayerPrefs.GetInt(lvlName + " High Score").ToString();
+			textField.text = PlayerPrefs.GetInt(lvlName + " Best").ToString();
 	}
 
 	public void select()
@@ -30,5 +31,11 @@ public class LvlSelectScript : MonoBehaviour
 	{
 		if (unlocked)
 			selectIcon.color = new Color(1, 1, 1, 0);
+	}
+
+	public void startLvl()
+	{
+		if (unlocked)
+			SceneManager.LoadScene(lvlName);
 	}
 }
