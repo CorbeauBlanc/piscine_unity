@@ -62,11 +62,14 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\cameraScript.cs" />
     <Compile Include="Assets\Scripts\LvlSelectScript.cs" />
+    <Compile Include="Assets\Scripts\PanelScript.cs" />
     <Compile Include="Assets\Scripts\RampBoost.cs" />
     <Compile Include="Assets\Scripts\ResetScript.cs" />
     <Compile Include="Assets\Scripts\Sonic.cs" />
     <Compile Include="Assets\Scripts\StatsScript.cs" />
+    <Compile Include="Assets\Scripts\TimerScript.cs" />
     <Compile Include="Assets\Scripts\TitleScreenScript.cs" />
+    <Compile Include="Assets\Scripts\UIManagerScript.cs" />
     <Compile Include="Assets\Scripts\UserNameScript.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Moonie/Documents/GitHub/piscine_unity/day4/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

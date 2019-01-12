@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Sonic : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class Sonic : MonoBehaviour
 	public float		maxSpeed;
 	public float		jumpHeight;
 	public float		rollingBoost;
+
+	public Text ringsUI;
 
 	private Animator	animator;
 	private Rigidbody2D	rbody;
@@ -39,6 +43,7 @@ public class Sonic : MonoBehaviour
 	public AudioSource aLoseRings;
 	public AudioSource aSpike;
 	public AudioSource aDeath;
+	public AudioSource aGetRing;
 
 	void Awake()	{
 		animator = GetComponent<Animator>();
@@ -191,6 +196,13 @@ public class Sonic : MonoBehaviour
 			animator.SetBool("jumpball", false);
 			isAirborne = false;
 			animator.SetBool("airborne", false);
+		} else if (collision.gameObject.tag == "ring")
+		{
+			rings++;
+			UIManagerScript.instance.rings = rings;
+			ringsUI.text = "x" + rings.ToString();
+			Destroy(collision.gameObject);
+			aGetRing.Play();
 		}
 	}
 
@@ -287,7 +299,7 @@ public class Sonic : MonoBehaviour
 	void newLife() {
 		isHit = false;
 		isDead = false;
-		Application.LoadLevel(Application.loadedLevel);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	void respawn() {
