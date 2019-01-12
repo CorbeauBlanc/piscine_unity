@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: 
+=======
+- path: Assets/Scenes/exo1.unity
+>>>>>>> 6d282bce3cabb771fe23bf156ccd408b5217597e
   isLoaded: 1
   isActive: 1
