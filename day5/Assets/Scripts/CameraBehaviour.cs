@@ -1,12 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Cameras;
 
 public class CameraBehaviour : MonoBehaviour
 {
 
 	public float speed = 1;
 
+	public bool Free
+	{
+		get => free;
+		set
+		{
+			free = value;
+			cameraRig.free = value;
+		}
+	}
+
+	public FreeLookCam cameraRig;
+
+	private bool free = false;
 	private CharacterController controller;
 
 	private void Start()
@@ -17,6 +31,9 @@ public class CameraBehaviour : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
+		if (!free)
+			return;
+
 		if (Input.GetKey("up"))
 			controller.Move(transform.forward * speed * Time.deltaTime);
 		if (Input.GetKey("down"))

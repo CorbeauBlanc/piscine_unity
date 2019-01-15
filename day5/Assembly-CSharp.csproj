@@ -60,7 +60,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ArrowBehaviour.cs" />
     <Compile Include="Assets\Scripts\CameraBehaviour.cs" />
+    <Compile Include="Assets\Scripts\GameManagerBehaviour.cs" />
+    <Compile Include="Assets\Scripts\HoleBehaviour.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Moonie/Documents/GitHub/piscine_unity/day5/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
