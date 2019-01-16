@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class PlayerDetectorBehaviour : MonoBehaviour
 {
+
+	public GameObject detector;
+	public bool enableToggler = true;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+		StartCoroutine(toggleDetector());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private IEnumerator toggleDetector()
+	{
+		while (enableToggler)
+		{
+			yield return new WaitForSeconds(10);
+			detector.SetActive(false);
+			yield return new WaitForSeconds(5);
+			detector.SetActive(true);
+		}
+	}
+
 }
