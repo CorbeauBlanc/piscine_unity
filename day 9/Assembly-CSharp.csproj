@@ -60,7 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AIBehaviour.cs" />
     <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
+    <Compile Include="Assets\Scripts\RocketBehaviour.cs" />
     <Compile Include="Assets\Scripts\WeaponBehaviour.cs" />
     <None Include="Assets\Weapons Pack(LOW POLY)\Weapons Pack info.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">

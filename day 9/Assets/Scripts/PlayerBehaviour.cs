@@ -9,8 +9,20 @@ public class PlayerBehaviour : MonoBehaviour
 	public GameObject impactDust;
 	public GameObject impactShower;
 	public GameObject impactExplosion;
+	public GameObject rocket;
+	public int life = 20;
 
 	private float fwCurrentTime;
+
+	public void looseLife()
+	{
+		life--;
+		if (life <= 0)
+		{
+			Application.Quit();
+			Debug.Log("END GAME");
+		}
+	}
 
 	private void selectWeapon(int nb)
 	{
@@ -36,6 +48,10 @@ public class PlayerBehaviour : MonoBehaviour
 					Instantiate(impactExplosion, hit.point, Quaternion.identity);
 				else
 					Instantiate(impactShower, hit.point, Quaternion.identity);
+				if (weapons[currentSelectedWeapon].tag == "Big Gun")
+					Instantiate(rocket, hit.point, Quaternion.identity);
+				else if (hit.collider.gameObject.tag == "ai")
+					hit.collider.GetComponent<AIBehaviour>().takeHit(weapons[currentSelectedWeapon].weaponDamages);
 			}
 		}
 

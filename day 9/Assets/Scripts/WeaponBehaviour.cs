@@ -9,6 +9,7 @@ public class WeaponBehaviour : MonoBehaviour
 	public ParticleSystem shootingParticle;
 	public float weaponFireRate;
 	public float weaponFireRange;
+	public int weaponDamages;
 
 	public void shoot()
 	{

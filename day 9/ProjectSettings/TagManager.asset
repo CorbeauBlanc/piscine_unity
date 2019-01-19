@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Fire
   - Big Gun
+  - player
+  - ai
   layers:
   - Default
   - TransparentFX
