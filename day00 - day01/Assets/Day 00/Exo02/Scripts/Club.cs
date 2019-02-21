@@ -8,7 +8,7 @@ public class Club : MonoBehaviour
 	public int strength;
 	public double givenMovement = 0;
 
-	private int score = -15;
+	private int score = -20;
 
     void Update()
     {
@@ -16,7 +16,8 @@ public class Club : MonoBehaviour
 			givenMovement += strength * ball.inertia;
 		else if (ball.movement == 0 && givenMovement != 0)
 		{
-			score += 5;
+			if (!ball.won)
+				score += 5;
 			if (score < 0)
 				Debug.Log("Score: " + score);
 			else

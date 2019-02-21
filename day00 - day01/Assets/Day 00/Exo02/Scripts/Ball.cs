@@ -8,11 +8,12 @@ public class Ball : MonoBehaviour
 	public double movement = 0;
 	public double maxWinSpeed = .01;
 	public GameObject ball;
+	public bool won = false;
 
 	private int direction = 1;
 
-    void Update()
-    {
+	void Update()
+	{
 		if (movement != 0)
 		{
 			if (ball.transform.position.y + direction * movement < -4.4 || ball.transform.position.y + direction * movement > 4.4)
@@ -27,11 +28,12 @@ public class Ball : MonoBehaviour
 				movement -= inertia;
 		}
 
-		if (ball.transform.position.y >= 2.6 && ball.transform.position.y <= 2.9 && movement <= maxWinSpeed)
+		if (ball.transform.position.y >= 2.6 && ball.transform.position.y <= 2.9 && movement <= maxWinSpeed && !won)
 		{
 			movement = 0;
 			inertia = 0;
 			Debug.Log("Win !!!");
+			won = true;
 		}
 
 	}

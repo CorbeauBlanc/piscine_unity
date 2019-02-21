@@ -14,10 +14,23 @@ public class CharacterBehaviour : MonoBehaviour
 	private BoxCollider2D cdr;
 	private Camera mainCam;
 
-	public int Index { get => index; set => index = value; }
+	public int Index
+	{
+		get
+		{
+			return index;
+		}
+		set
+		{
+			index = value;
+		}
+	}
 	public bool Active
 	{
-		get => active;
+		get
+		{
+			return active;
+		}
 		set
 		{
 			active = value;

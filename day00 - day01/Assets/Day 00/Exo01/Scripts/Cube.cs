@@ -17,13 +17,13 @@ public class Cube : MonoBehaviour
 		cubeSpeed = UnityEngine.Random.Range(.05F, .2F);
 	}
 
-    void Update()
-    {
+	void Update()
+	{
 		movementTimer += Time.deltaTime;
 
 		if ((Input.GetKeyDown("a") && line == 1) ||
-			(Input.GetKeyDown("u") && line == 2) ||
-			(Input.GetKeyDown("i") && line == 3))
+			(Input.GetKeyDown("s") && line == 2) ||
+			(Input.GetKeyDown("d") && line == 3))
 		{
 			if (cube.transform.position.y > -3.9 && cube.transform.position.y < -2.7)
 			{
