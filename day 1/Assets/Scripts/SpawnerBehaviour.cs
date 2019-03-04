@@ -7,8 +7,49 @@ public class SpawnerBehaviour : MonoBehaviour
 {
 
 	public GameObject[]	characters;
+	public string nextScene = "";
 
+	private static SpawnerBehaviour instance;
 	private List<GameObject> spawnedCharacters;
+	private int exitedCharacters = 0;
+
+	public static SpawnerBehaviour Instance
+	{
+		get
+		{
+			return instance;
+		}
+
+		private set { }
+	}
+
+	public GameObject getCharacterInstance(string tag)
+	{
+		foreach (GameObject character in characters)
+			if (character.tag == tag)
+				return character;
+		return null;
+	}
+
+	public void addExitedCharacter()
+	{
+		exitedCharacters++;
+		if (exitedCharacters == characters.Length)
+		{
+			Debug.Log("YOU WIN!");
+			if (nextScene != "")
+				SceneManager.LoadScene(nextScene);
+		}
+	}
+
+	/// <summary>
+	/// Awake is called when the script instance is being loaded.
+	/// </summary>
+	void Awake()
+	{
+		if (!instance)
+			instance = this;
+	}
 
 	private void Start()
 	{
@@ -17,14 +58,12 @@ public class SpawnerBehaviour : MonoBehaviour
 
 	private void ResetScene()
 	{
-		foreach (GameObject spawned in spawnedCharacters)
-			GameObject.Destroy(spawned);
-
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	// Update is called once per frame
 	void Update()
-    {
+	{
 		int num = -1;
 
 		if (Input.GetKeyUp("1"))

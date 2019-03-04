@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - thomas
+  - claire
+  - john
   layers:
   - Default
   - TransparentFX
@@ -14,13 +17,13 @@ TagManager:
   - 
   - 
   - Scene
-  - Characters
-  - Walls
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Exit
+  - PlatformThomas
+  - PlatformJohn
+  - PlatformClaire
+  - Thomas
+  - John
+  - Claire
   - 
   - 
   - 
