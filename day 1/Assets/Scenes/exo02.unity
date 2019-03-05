@@ -199,6 +199,7 @@ MonoBehaviour:
   - {fileID: 1815435132946922, guid: da1f25c6d89a8c940a1536cd0c8f8b1d, type: 2}
   - {fileID: 1908893383132550, guid: 0ade7b8287a76a34fbdcc9c64bc91754, type: 2}
   - {fileID: 1216352534383064, guid: 61e866d95645f3a48b6ed10fbdae0cda, type: 2}
+  nextScene: exo03
 --- !u!1 &453215100
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,14 +14,14 @@ public class ExitBehaviour : MonoBehaviour {
 	private bool leftTriggerActivated = false;
 	private bool rightTriggerActivated = false;
 
-	private bool isCharacterInExit = false;
-	private CharacterBehaviour characterInstance;
+	private CharacterBehaviour characterInstance = null;
 
 	public string charactersTag;
 
 	// Update is called once per frame
 	void Update () {
-		if (!isCharacterInExit && upTriggerActivated && downTriggerActivated && leftTriggerActivated && rightTriggerActivated &&
+		if (characterInstance && !characterInstance.isInExit &&
+			upTriggerActivated && downTriggerActivated && leftTriggerActivated && rightTriggerActivated &&
 			characterInstance.isGrounded())
 		{
 			characterInstance.transform.position = gameObject.transform.position;
@@ -43,11 +43,11 @@ public class ExitBehaviour : MonoBehaviour {
 				characterInstance = other.gameObject.GetComponent<CharacterBehaviour>();
 			if (!upTriggerActivated && upTrigger.IsTouching(other))
 				upTriggerActivated = true;
-			else if (!downTriggerActivated && downTrigger.IsTouching(other))
+			if (!downTriggerActivated && downTrigger.IsTouching(other))
 				downTriggerActivated = true;
-			else if (!leftTriggerActivated && leftTrigger.IsTouching(other))
+			if (!leftTriggerActivated && leftTrigger.IsTouching(other))
 				leftTriggerActivated = true;
-			else if (!rightTriggerActivated && rightTrigger.IsTouching(other))
+			if (!rightTriggerActivated && rightTrigger.IsTouching(other))
 				rightTriggerActivated = true;
 		}
 	}
@@ -63,11 +63,11 @@ public class ExitBehaviour : MonoBehaviour {
 		{
 			if (upTriggerActivated && !upTrigger.IsTouching(other))
 				upTriggerActivated = false;
-			else if (downTriggerActivated && !downTrigger.IsTouching(other))
+			if (downTriggerActivated && !downTrigger.IsTouching(other))
 				downTriggerActivated = false;
-			else if (leftTriggerActivated && !leftTrigger.IsTouching(other))
+			if (leftTriggerActivated && !leftTrigger.IsTouching(other))
 				leftTriggerActivated = false;
-			else if (rightTriggerActivated && !rightTrigger.IsTouching(other))
+			if (rightTriggerActivated && !rightTrigger.IsTouching(other))
 				rightTriggerActivated = false;
 		}
 	}

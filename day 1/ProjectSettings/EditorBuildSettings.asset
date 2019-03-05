@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/exo02.unity
     guid: c4249dcdf8aa9ea4c8ce503f83e273b1
+  - enabled: 1
+    path: Assets/Scenes/exo03.unity
+    guid: 237f0623f9f9f3a43b2f7f273dace53f
