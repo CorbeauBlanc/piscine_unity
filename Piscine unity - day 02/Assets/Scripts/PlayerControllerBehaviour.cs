@@ -43,7 +43,6 @@ public class PlayerControllerBehaviour : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		int i;
 		FootmanBehavior tmp;
 
 		if (Input.GetButtonDown("Fire1"))
@@ -55,7 +54,7 @@ public class PlayerControllerBehaviour : MonoBehaviour
 				if (!Input.GetKey("left ctrl"))
 					clearSelection();
 				tmp = hit.collider.GetComponent<FootmanBehavior>();
-				if ((i = selectedFootmans.IndexOf(tmp)) < 0)
+				if (selectedFootmans.IndexOf(tmp) < 0)
 					addFootmanToSelection(tmp);
 			} else
 				OnMoveToLocation();
