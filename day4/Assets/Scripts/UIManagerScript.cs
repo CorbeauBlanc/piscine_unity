@@ -43,8 +43,8 @@ public class UIManagerScript : MonoBehaviour
 			PlayerPrefs.SetInt("lvl1 Best", finalScore);
 		PlayerPrefs.Save();
 
-		signCamera.SetActive(true);
-		player.SetActive(false);
+		//signCamera.SetActive(true);
+		//player.SetActive(false);
 		gameUI.SetActive(false);
 		scoreUI.SetActive(true);
 	}

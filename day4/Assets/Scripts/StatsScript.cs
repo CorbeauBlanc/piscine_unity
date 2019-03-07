@@ -11,7 +11,7 @@ public class StatsScript : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Start()
-    {
+	{
 		totalRings.text = PlayerPrefs.GetInt("Rings").ToString();
 		totalLives.text = PlayerPrefs.GetInt("Lost Lives").ToString();
 	}
