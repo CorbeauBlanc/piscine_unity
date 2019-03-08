@@ -7,10 +7,17 @@ public class CameraBehaviour : MonoBehaviour
 {
 
 	public float speed = 1;
+	public FreeLookCam cameraRig;
+	public CharacterController controller;
+
+	private bool free = false;
 
 	public bool Free
 	{
-		get => free;
+		get
+		{
+			return free;
+		}
 		set
 		{
 			free = value;
@@ -18,19 +25,9 @@ public class CameraBehaviour : MonoBehaviour
 		}
 	}
 
-	public FreeLookCam cameraRig;
-
-	private bool free = false;
-	private CharacterController controller;
-
-	private void Start()
-	{
-		controller = gameObject.GetComponentInParent<CharacterController>();
-	}
-
 	// Update is called once per frame
 	void Update()
-    {
+	{
 		if (!free)
 			return;
 
