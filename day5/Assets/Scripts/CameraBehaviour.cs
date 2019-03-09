@@ -7,10 +7,12 @@ public class CameraBehaviour : MonoBehaviour
 {
 
 	public float speed = 1;
-	public FreeLookCam cameraRig;
+	public GameObject cameraRig;
+	public GameObject cameraPivot;
 	public CharacterController controller;
 
 	private bool free = false;
+	private FreeLookCam cameraScript;
 
 	public bool Free
 	{
@@ -21,8 +23,23 @@ public class CameraBehaviour : MonoBehaviour
 		set
 		{
 			free = value;
-			cameraRig.free = value;
+			cameraScript.free = value;
 		}
+	}
+
+	public void LookToward(GameObject obj)
+	{
+		cameraRig.transform.LookAt(obj.transform);
+		cameraPivot.transform.LookAt(obj.transform);
+	}
+
+	/// <summary>
+	/// Start is called on the frame when a script is enabled just before
+	/// any of the Update methods is called the first time.
+	/// </summary>
+	void Start()
+	{
+		cameraScript = cameraRig.GetComponent<FreeLookCam>();
 	}
 
 	// Update is called once per frame

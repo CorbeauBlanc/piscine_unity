@@ -13,7 +13,7 @@ public class GameManagerBehaviour : MonoBehaviour
 	public List<GameObject> flags;
 	public List<GameObject> starts;
 
-	public int maxForce = 200000;
+	public int maxForce = 1000;
 
 	public GameObject UI;
 	public Image loadingBar;
@@ -22,16 +22,31 @@ public class GameManagerBehaviour : MonoBehaviour
 	public int force = 0;
 	public int currentHole = 0;
 
-	private int chargingFactor = 4000;
+	private int chargingFactor;
 	private CameraBehaviour camBehaviour;
+	private ArrowBehaviour arrowBehaviour;
 	private Rigidbody ballRigidbody;
 	private bool clubMode = false;
+	private bool ballThrown = true;
+
+
+// Start is called before the first frame update
+	void Start()
+	{
+		instance = this;
+		camBehaviour = freeCamera.GetComponentInChildren<CameraBehaviour>();
+		arrowBehaviour = arrow.GetComponent<ArrowBehaviour>();
+		golfBall = Instantiate(golfBall, starts[0].transform.position, Quaternion.identity);
+		ballRigidbody = golfBall.GetComponent<Rigidbody>();
+		cameraSetBallView();
+		chargingFactor = 4 * maxForce / 100;
+	}
 
 	public void cameraSetBallView()
 	{
 		freeCamera.transform.position = golfBall.transform.position;
-		freeCamera.transform.LookAt(flags[currentHole].transform);
-		freeCamera.transform.position = freeCamera.transform.position + 20 * Camera.main.transform.up - 80 * Camera.main.transform.forward;
+		camBehaviour.LookToward(flags[currentHole]);
+		freeCamera.transform.position = freeCamera.transform.position + 4 * Camera.main.transform.up - 10 * Camera.main.transform.forward;
 	}
 
 	public void resetGame()
@@ -44,7 +59,9 @@ public class GameManagerBehaviour : MonoBehaviour
 
 		ballRigidbody.velocity = Vector3.zero;
 		setClubMode(false);
+		cameraSetBallView();
 		golfBall.transform.position = starts[currentHole].transform.position;
+		camBehaviour.Free = false;
 	}
 
 	private void setClubMode(bool value)
@@ -53,14 +70,16 @@ public class GameManagerBehaviour : MonoBehaviour
 		{
 			UI.SetActive(false);
 			arrow.SetActive(false);
+			loadingBar.rectTransform.localScale = new Vector3(0, 1, 1);
 			charging = false;
 			clubMode = false;
 		} else
 		{
 			UI.SetActive(true);
-			arrow.transform.position = golfBall.transform.position - arrow.transform.forward * 20;
+			arrow.transform.position = golfBall.transform.position - arrow.transform.forward * arrowBehaviour.distance;
 			arrow.SetActive(true);
 			clubMode = true;
+			cameraSetBallView();
 		}
 	}
 
@@ -69,33 +88,27 @@ public class GameManagerBehaviour : MonoBehaviour
 		ballRigidbody.AddForce(-arrow.transform.forward * force);
 		setClubMode(false);
 		force = 0;
+		ballThrown = true;
 	}
 
-	// Start is called before the first frame update
-	void Start()
+	private void switchCamMode()
 	{
-		instance = this;
-		camBehaviour = freeCamera.GetComponentInChildren<CameraBehaviour>();
-		golfBall = Instantiate(golfBall, starts[0].transform.position, Quaternion.identity);
-		ballRigidbody = golfBall.GetComponent<Rigidbody>();
-		cameraSetBallView();
+		camBehaviour.Free = !camBehaviour.Free;
+		setClubMode(!camBehaviour.Free);
+		arrow.SetActive(true);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 		if (Input.GetKeyUp("e"))
-		{
-			camBehaviour.Free = !camBehaviour.Free;
-			if (!camBehaviour.Free)
-				cameraSetBallView();
-		}
+			switchCamMode();
 
-		if (ballRigidbody.velocity.magnitude < 1 && !clubMode)
+		if (ballThrown && ballRigidbody.velocity.magnitude < .1 && !clubMode)
 		{
-			ballRigidbody.velocity = Vector3.zero;
+			camBehaviour.Free = false;
 			setClubMode(true);
-			cameraSetBallView();
+			ballThrown = false;
 		}
 
 		if (charging)
@@ -115,12 +128,17 @@ public class GameManagerBehaviour : MonoBehaviour
 			loadingBar.rectTransform.localScale = new Vector3((float)force / (float)maxForce, 1, 1);
 		}
 
-		if (Input.GetKeyUp("space") && clubMode)
+		if (Input.GetKeyUp("space"))
 		{
-			if (!charging)
-				charging = true;
-			else
-				throwBall();
+			if (clubMode)
+			{
+				if (!charging)
+					charging = true;
+				else
+					throwBall();
+			} else if (camBehaviour.Free)
+				switchCamMode();
 		}
 	}
+
 }

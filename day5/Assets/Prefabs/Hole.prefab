@@ -81,6 +81,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4832534615812432}
+  - component: {fileID: 65482733656785760}
+  - component: {fileID: 114841041625624530}
   m_Layer: 0
   m_Name: Hole
   m_TagString: Untagged
@@ -217,7 +219,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467876486671384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4278925426772864}
@@ -473,3 +475,27 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167908807599644}
   m_Mesh: {fileID: 4300002, guid: 3b54798780ed27c4098ce8e1662ab6a7, type: 3}
+--- !u!65 &65482733656785760
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1383431399622004}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 1, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114841041625624530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1383431399622004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e468a1149bf921841aea08f29836e526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holeNumber: 0

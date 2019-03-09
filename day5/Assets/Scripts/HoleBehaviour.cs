@@ -8,7 +8,7 @@ public class HoleBehaviour : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (holeNumber == GameManagerBehaviour.instance.currentHole + 1)
+		if (holeNumber == GameManagerBehaviour.instance.currentHole)
 			GameManagerBehaviour.instance.currentHole++;
 		GameManagerBehaviour.instance.resetGame();
 	}
