@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ProgressBarBehaviour : MonoBehaviour
 {
-    // Update is called once per frame
-    void Update()
-    {
+	// Update is called once per frame
+	void Update()
+	{
 		if (transform.localScale.x > 1)
 		{
 			SoundManager.instance.playMusicPanic();

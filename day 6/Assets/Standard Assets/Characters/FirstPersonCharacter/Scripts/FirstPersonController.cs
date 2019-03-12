@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -25,10 +26,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		[SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
 		[SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
 		[SerializeField] private float m_StepInterval;
-		[SerializeField] private AudioClip[] m_FootstepSounds;	// an array of footstep sounds that will be randomly selected from.
-		[SerializeField] private AudioClip m_JumpSound;		   // the sound played when character leaves the ground.
-		[SerializeField] private AudioClip m_LandSound;		   // the sound played when character touches back on ground.
+		[SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
+		[SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
+		[SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+		public static FirstPersonController player { get; private set; }
 		private Camera m_Camera;
 		private bool m_Jump;
 		private float m_YRotation;
@@ -47,11 +49,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public GameObject spotlight;
 		public bool lightOn = false;
 		public float detectRate = .1F;
+		public bool hasKey = false;
+		public bool isInLight = false;
+		public AudioClip pickItemSound;
 
 		private int detectFactor = 1;
 		private bool isDetectable = false;
-		private bool isInLight = false;
-		private bool hasKey = false;
+
+		/// <summary>
+		/// Awake is called when the script instance is being loaded.
+		/// </summary>
+		void Awake()
+		{
+			player = this;
+		}
 
 		// Use this for initialization
 		private void Start()
@@ -93,7 +104,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 			m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
-
 			if (Input.GetKeyDown("l"))
 			{
 				lightOn = !lightOn;
@@ -120,12 +130,29 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				progressBar.color = progressBar.transform.localScale.x < 1 ? new Color(progressBar.transform.localScale.x, 1, 0) :
 																			Color.red;
 			}
+
+			if (progressBar.transform.localScale.x > 1.37)
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
+
+		private void PlayLandingSound()
+		{
+			m_AudioSource.clip = m_LandSound;
+			m_AudioSource.Play();
+			m_NextStep = m_StepCycle + .5f;
+		}
+
+		private void PlayPickItemSound()
+		{
+			m_AudioSource.clip = pickItemSound;
+			m_AudioSource.Play();
 		}
 
 		private void OnTriggerEnter(Collider other)
 		{
 			if (other.tag == "Key")
 			{
+				PlayPickItemSound();
 				Destroy(other.gameObject);
 				hasKey = true;
 			}
@@ -140,11 +167,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				isInLight = true;
 				if (progressBar.transform.localScale.x > 1)
 				{
-					alarm = other.GetComponent<AudioSource>();
+					alarm = other.GetComponentInParent<AudioSource>();
 					if (!alarm.isPlaying)
 						alarm.Play();
-					if (progressBar.transform.localScale.x >= 1.38)
-						Application.Quit();
 				}
 			}
 		}
@@ -153,14 +178,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		{
 			if (other.tag == "Detector")
 				isInLight = false;
-		}
-
-
-		private void PlayLandingSound()
-		{
-			m_AudioSource.clip = m_LandSound;
-			m_AudioSource.Play();
-			m_NextStep = m_StepCycle + .5f;
 		}
 
 
