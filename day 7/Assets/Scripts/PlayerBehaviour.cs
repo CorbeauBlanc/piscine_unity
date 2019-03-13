@@ -8,6 +8,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public float speed = .1F;
 	public float turretSpeed = .1F;
+	public float bodyRotationSpeed = 2;
 	public GameObject body;
 	public GameObject turret;
 	public GameObject gunSparks;
@@ -38,6 +39,15 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private void Update()
 	{
+		float axis;
+
+		if ((axis = Input.GetAxis("Vertical")) > 0 || axis < 0)
+			controller.Move(-axis * speed * body.transform.up * (boost > 1 ? boost -= .1F : boost = 1));
+		if ((axis = Input.GetAxis("Horizontal")) > 0 || axis < 0)
+			body.transform.localEulerAngles += Vector3.forward * axis * bodyRotationSpeed;
+		if ((axis = Input.GetAxis("Mouse X")) > 0 || axis < 0)
+			turret.transform.localEulerAngles += Vector3.up * axis;
+
 		gunCurrentTime += Time.deltaTime;
 		missileCurrentTime += Time.deltaTime;
 
@@ -83,8 +93,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		float axis;
-
 		if (!controller.isGrounded)
 		{
 			RaycastHit hit;
@@ -92,12 +100,5 @@ public class PlayerBehaviour : MonoBehaviour
 				Debug.LogError("Pb raycast");
 			controller.Move(-transform.up * hit.distance);
 		}
-
-		if ((axis = Input.GetAxis("Vertical")) > 0 || axis < 0)
-			controller.Move(-axis * speed * body.transform.up * (boost > 1 ? boost -= .1F : boost = 1));
-		if ((axis = Input.GetAxis("Horizontal")) > 0 || axis < 0)
-			body.transform.localEulerAngles += Vector3.forward * axis;
-		if ((axis = Input.GetAxis("Mouse X")) > 0 || axis < 0)
-			turret.transform.localEulerAngles += Vector3.up * axis;
 	}
 }
