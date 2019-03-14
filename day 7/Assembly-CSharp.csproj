@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\EnnemiBehaviour.cs" />
+     <Compile Include="Assets\Scripts\ExplosionSoundBehaviour.cs" />
      <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
      <Compile Include="Assets\Scripts\SparksBehaviour.cs" />
      <None Include="Assets\Models\tank\README.txt" />
