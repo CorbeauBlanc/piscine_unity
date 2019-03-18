@@ -6,7 +6,7 @@ public class WeaponBehaviour : MonoBehaviour
 {
 	public Animator weaponAnimator;
 	public AudioSource shootingAudio;
-	public ParticleSystem shootingParticle;
+	public GameObject impactParticle;
 	public float weaponFireRate;
 	public float weaponFireRange;
 	public int weaponDamages;
@@ -14,7 +14,6 @@ public class WeaponBehaviour : MonoBehaviour
 	public void shoot()
 	{
 		shootingAudio.Play();
-		shootingParticle.Play();
 		weaponAnimator.SetTrigger("Shooting");
 	}
 }

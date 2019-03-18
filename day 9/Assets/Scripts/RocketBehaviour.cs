@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class RocketBehaviour : MonoBehaviour
 {
-	private void explode(Collider other)
+	public float explosionTime;
+	public int rocketDamage;
+
+	/// <summary>
+	/// Start is called on the frame when a script is enabled just before
+	/// any of the Update methods is called the first time.
+	/// </summary>
+	void Start()
 	{
-		other.gameObject.GetComponent<AIBehaviour>().takeHit(5);
+		StartCoroutine(RemoveRocket());
+	}
+
+	private IEnumerator RemoveRocket()
+	{
+		yield return new WaitForSeconds(explosionTime);
 		Destroy(gameObject);
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "ai")
-			explode(other);
+		if (other.tag == "Ennemi")
+			other.gameObject.GetComponentInParent<AIBehaviour>().TakeHit(rocketDamage);
 	}
 }

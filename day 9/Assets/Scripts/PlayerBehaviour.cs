@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	public static PlayerBehaviour instance { get; private set; }
 	public WeaponBehaviour[] weapons;
 	public int currentSelectedWeapon = 0;
-	public GameObject impactDust;
 	public GameObject impactShower;
 	public GameObject impactExplosion;
 	public GameObject rocket;
@@ -14,22 +14,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private float fwCurrentTime;
 
-	public void looseLife()
+	/// <summary>
+	/// Awake is called when the script instance is being loaded.
+	/// </summary>
+	void Awake()
 	{
-		life--;
-		if (life <= 0)
-		{
-			Application.Quit();
-			Debug.Log("END GAME");
-		}
-	}
-
-	private void selectWeapon(int nb)
-	{
-		foreach(WeaponBehaviour weapon in weapons)
-			weapon.gameObject.SetActive(false);
-		weapons[nb].gameObject.SetActive(true);
-		currentSelectedWeapon = nb;
+		instance = this;
 	}
 
 	private void Update()
@@ -41,17 +31,14 @@ public class PlayerBehaviour : MonoBehaviour
 			weapons[currentSelectedWeapon].shoot();
 			fwCurrentTime = 0;
 			RaycastHit hit;
-			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, weapons[currentSelectedWeapon].weaponFireRange, ~LayerMask.GetMask("Player")))
+			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, weapons[currentSelectedWeapon].weaponFireRange, LayerMask.GetMask("Terrain", "AI")))
 			{
-				Instantiate(impactDust, hit.point, Quaternion.identity);
-				if (currentSelectedWeapon == 1)
-					Instantiate(impactExplosion, hit.point, Quaternion.identity);
-				else
-					Instantiate(impactShower, hit.point, Quaternion.identity);
-				if (weapons[currentSelectedWeapon].tag == "Big Gun")
-					Instantiate(rocket, hit.point, Quaternion.identity);
-				else if (hit.collider.gameObject.tag == "ai")
-					hit.collider.GetComponent<AIBehaviour>().takeHit(weapons[currentSelectedWeapon].weaponDamages);
+				Instantiate(weapons[currentSelectedWeapon].impactParticle, hit.point, Quaternion.identity);
+				if (weapons[currentSelectedWeapon].tag == "Rocket Launcher")
+					Instantiate(rocket, hit.point, Quaternion.identity)
+						.GetComponent<RocketBehaviour>().rocketDamage = weapons[currentSelectedWeapon].weaponDamages;
+				if (hit.collider.tag == "Ennemi")
+					hit.collider.GetComponentInParent<AIBehaviour>().TakeHit(weapons[currentSelectedWeapon].weaponDamages);
 			}
 		}
 
@@ -59,5 +46,26 @@ public class PlayerBehaviour : MonoBehaviour
 			selectWeapon(0);
 		if (Input.GetKeyDown("2"))
 			selectWeapon(1);
+	}
+
+	private void selectWeapon(int nb)
+	{
+		foreach(WeaponBehaviour weapon in weapons)
+			weapon.gameObject.SetActive(false);
+		weapons[nb].gameObject.SetActive(true);
+		fwCurrentTime = weapons[nb].weaponFireRate;
+		currentSelectedWeapon = nb;
+	}
+
+	public bool LooseLife()
+	{
+		life--;
+		if (life <= 0)
+		{
+			Application.Quit();
+			Debug.Log("END GAME");
+			return true;
+		}
+		return false;
 	}
 }
